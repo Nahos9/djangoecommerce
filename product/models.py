@@ -17,7 +17,7 @@ class Product(models.Model):
     price = models.FloatField()
     description = models.TextField()
     category = models.ForeignKey(Category,related_name='category',on_delete=models.CASCADE)
-    image = models.ImageField(max_length=5000)
+    image = models.CharField(max_length=5000,blank=True)
     date_added = models.DateField(auto_now=True)
 
     def __str__(self):

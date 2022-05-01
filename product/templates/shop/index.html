@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center pt-4">
+    <div class="col-md-6">
+        <form action="">
+            <div class="row no-gutters align-items-center">
+                <div class="col">
+                    <input type="search" name="search-item" placeholder="Recherche" class="form-control form-borderless">
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-success">Rechercher</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row pt-4">
+        {% for product in products %}
+        <div class="col-md-3">
+            <div class="card">
+                <img src="{{product.image}}" alt="photo" style="height: 230px;">
+                <div class="card-body">
+                    <div class="card-title">{{product.title}}</div>
+                    <div class="card-text">{{product.price}} $</div>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-info" href="show/{{product.id}}">Voir</a>
+                    <a id="{{product.id}}" class="btn btn-success btn-panier">Ajpouter au panier</a>
+                </div>
+            </div>
+            
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    if(localStorage.getItem('panier') == null){
+        var panier = {}
+    }else{
+        panier = JSON.parse(localStorage.getItem('panier'))
+    }
+    $(document).on('click','.btn-panier',function(){
+       var  id = this.id.toString()
+        if(panier[id]!= undefined){
+            panier[id] = panier[id] +1
+        }else{
+            panier[id] = 1
+        }
+        console.log(panier)
+        localStorage.setItem('panier',JSON.stringify(panier));
+        document.getElementById("panier-nbr").innerHTML = Object.keys(panier).length
+    })
+</script>
+{% endblock %}

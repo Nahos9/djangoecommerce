@@ -8,5 +8,5 @@ class AdminCategory(admin.ModelAdmin):
 class AdminProduct(admin.ModelAdmin):
     list_display = ('title','price','category','date_added')
 
-admin.site.register(Product)
-admin.site.register(Category)
+admin.site.register(Product,AdminProduct)
+admin.site.register(Category,AdminCategory)
